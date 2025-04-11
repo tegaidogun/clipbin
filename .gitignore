@@ -1,7 +1,8 @@
 __pycache__/
 *.pyc
 instance/
-clipbin.db
+pastedump.db
 .env
 *.sqlite3
 *.db
+rename_to_pastedump.sh

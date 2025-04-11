@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 # Initialize DB
 mkdir -p instance
-sqlite3 instance/clipbin.db < database/schema.sql
+sqlite3 instance/pastedump.db < database/schema.sql
 
 # Run the app
 python app.py

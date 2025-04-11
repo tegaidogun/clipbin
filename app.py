@@ -5,7 +5,7 @@ import os
 from datetime import datetime, timedelta
 
 app = Flask(__name__, instance_relative_config=True)
-app.config['DATABASE'] = os.path.join(app.instance_path, 'clipbin.db')
+app.config['DATABASE'] = os.path.join(app.instance_path, 'pastedump.db')
 SCHEMA_PATH = os.path.join(os.path.dirname(__file__), 'database', 'schema.sql')
 
 # Ensure instance folder exists
