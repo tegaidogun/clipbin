@@ -5,4 +5,3 @@ pastedump.db
 .env
 *.sqlite3
 *.db
-rename_to_pastedump.sh
