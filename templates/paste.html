@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ paste.title }} - Clipbin</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ paste.title }}</h1>
+        <pre><code>{{ paste.content }}</code></pre>
+        <a href="/">Create another</a>
+    </div>
+</body>
+</html>

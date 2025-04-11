@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clipbin - Create Paste</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Clipbin</h1>
+        <form action="/paste" method="POST">
+            <input type="text" name="title" placeholder="Title" />
+            <textarea name="content" placeholder="Paste your content here..."></textarea>
+            <button type="submit">Create Paste</button>
+        </form>
+    </div>
+</body>
+</html>
