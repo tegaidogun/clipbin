@@ -6,6 +6,8 @@ A minimal Pastebin clone built with Flask.
 - Create and share text/code pastes
 - View pastes by URL
 - Syntax highlighting with highlight.js
+- HTML escaping for safe rendering
+- Expiration support for pastes
 
 ## Run locally
 

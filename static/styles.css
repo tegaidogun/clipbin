@@ -1,51 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  --bg-color: #111827;
+  --text-color: #e5e7eb;
+  --input-bg: #1f2937;
+  --input-border: #374151;
+  --button-bg: #3b82f6;
+  --button-hover: #2563eb;
+  --highlight-bg: #2c313c;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 3rem 1rem;
+  min-height: 100vh;
 }
 
-.container {
-    background: white;
-    padding: 2rem;
-    margin-top: 3rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    width: 80%;
-    max-width: 700px;
+header {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-input, textarea {
-    width: 100%;
-    padding: 0.8rem;
-    margin: 0.5rem 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-family: inherit;
+header h1 {
+  font-size: 1.75rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--text-color);
+}
+
+form {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: border-box;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 button {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    background-color: #2d89ef;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-left: auto;
 }
 
 button:hover {
-    background-color: #1b61c1;
+  background-color: var(--button-hover);
 }
 
-pre {
-    background-color: #eee;
-    padding: 1rem;
-    overflow-x: auto;
-    border-radius: 4px;
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+ul li a,
+a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--button-bg);
+}
+
+main.paste-view {
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.paste-meta {
+  text-align: right;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.codebox {
+  background-color: var(--highlight-bg);
+  border: 1px solid #3c4049;
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.code-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.code-table td {
+  vertical-align: top;
+  font-family: monospace;
+  font-size: 0.95rem;
+  padding: 0.2rem 0.5rem;
+  white-space: pre;
+}
+
+.code-table .lineno {
+  width: 2rem;
+  color: #999;
+  background-color: #262b33;
+  text-align: right;
+  user-select: none;
+  border-right: 1px solid #3a3f4b;
+}
+
+.code-table .codetext {
+  color: var(--text-color);
+}
+
+.code-table pre {
+  margin: 0;
+}
+
+.paste-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.paste-actions button {
+  background-color: var(--button-bg);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.paste-actions button:hover {
+  background-color: var(--button-hover);
+}
+
+.paste-nav {
+  text-align: center;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.paste-nav a {
+  color: var(--text-color);
+  font-weight: 500;
 }
