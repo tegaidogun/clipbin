@@ -21,7 +21,7 @@ body {
 
 header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin: 2rem 0;
 }
 
 header h1 {
@@ -32,7 +32,7 @@ header h1 {
 }
 
 form {
-  max-width: 720px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -182,4 +182,24 @@ main.paste-view {
 .paste-nav a {
   color: var(--text-color);
   font-weight: 500;
+}
+
+.site-header {
+  margin: 0 10%;
+  position: absolute;
+  top: 1.25rem;
+  left: 1.5rem;
+}
+
+.site-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+}
+
+.site-title:hover {
+  color: white;
+  text-decoration: none;
 }

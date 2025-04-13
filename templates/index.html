@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Paste</title>
-    <link rel="stylesheet" href="/static/styles.css">
+  <title>PasteDump</title>
+  <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <header>
-        <h1>new text entry</h1>
-    </header>
+  {% include '_header.html' %}
+  <header>
+    <h1>new text entry</h1>
+  </header>
 
-    <form action="/paste" method="POST">
-        <input type="text" name="title" placeholder="name (optional)" />
-        <textarea name="content" placeholder="type or paste content..."></textarea>
-        <div class="controls">
-            <select name="expires_in">
-                <option value="">never</option>
-                <option value="5">5 min</option>
-                <option value="60">1 hr</option>
-                <option value="1440">1 day</option>
-            </select>
-            <button type="submit">save</button>
-        </div>
-    </form>
+  <form action="/paste" method="POST">
+    <input type="text" name="title" placeholder="name (optional)" />
+    <textarea name="content" placeholder="type or paste content..."></textarea>
+    <div class="controls">
+      <select name="expires_in">
+        <option value="">never</option>
+        <option value="5">5 min</option>
+        <option value="60">1 hr</option>
+        <option value="1440">1 day</option>
+      </select>
+      <button type="submit">save</button>
+    </div>
+  </form>
 
-    {% if pastes %}
-    <ul>
-        {% for paste in pastes %}
-            <li><a href="/paste/{{ paste.id }}">{{ paste.title }}</a> <small>({{ paste.created_at }})</small></li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+  {% if pastes %}
+  <ul>
+    {% for paste in pastes %}
+    <li><a href="/paste/{{ paste.id }}">{{ paste.title }}</a> <small>({{ paste.created_at }})</small></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
 </body>
 </html>

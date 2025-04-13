@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ paste.title }}</title>
-    <link rel="stylesheet" href="/static/styles.css">
+  <title>{{ paste.title }} - PasteDump</title>
+  <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <header>
-        <h1>{{ paste.title }}</h1>
-    </header>
-    <main class="paste-view">
-        <div class="paste-meta">
-            <p><em>{{ paste.created_at }}</em></p>
-        </div>
-        <div class="codebox">
-            <table class="code-table">
-                <tbody>
-                    {% for line in paste.content.split('\n') %}
-                    <tr>
-                        <td class="lineno" unselectable="on">{{ loop.index }} |</td>
-                        <td class="codetext"><pre>{{ line }}</pre></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="paste-actions">
-            <button onclick="copyURL()">copy url</button>
-            <a href="data:text/plain;charset=utf-8,{{ paste.content | urlencode }}" download="{{ paste.title or 'paste' }}.txt">
-                <button>download .txt</button>
-            </a>
-        </div>
-        <div class="paste-nav">
-            <p><a href="/">new entry →</a></p>
-        </div>
-    </main>
-    <script>
-        function copyURL() {
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                alert("URL copied to clipboard");
-            });
-        }
-    </script>
+  {% include '_header.html' %}
+  <header>
+    <h1>{{ paste.title }}</h1>
+  </header>
+  <main class="paste-view">
+    <div class="paste-meta">
+      <p><em>{{ paste.created_at }}</em></p>
+    </div>
+    <div class="codebox">
+      <table class="code-table">
+        <tbody>
+          {% for line in paste.content.split('\n') %}
+          <tr>
+            <td class="lineno" unselectable="on">{{ loop.index }} |</td>
+            <td class="codetext"><pre>{{ line }}</pre></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="paste-actions">
+      <button onclick="copyURL()">copy url</button>
+      <a href="data:text/plain;charset=utf-8,{{ paste.content | urlencode }}" download="{{ paste.title or 'paste' }}.txt">
+        <button>download .txt</button>
+      </a>
+    </div>
+    <div class="paste-nav">
+      <p><a href="/">new entry →</a></p>
+    </div>
+  </main>
+  <script>
+    function copyURL() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert("URL copied to clipboard");
+      });
+    }
+  </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, abort
+from flask import Flask, render_template, request, redirect, url_for, abort, Response
 import sqlite3
 import uuid
 import os
@@ -77,6 +77,15 @@ def view_paste(paste_id):
         abort(404)
 
     return render_template('paste.html', paste=paste)
+
+@app.route('/paste/<paste_id>/raw')
+def view_raw_paste(paste_id):
+    db = get_db()
+    paste = db.execute('SELECT content FROM pastes WHERE id = ?', (paste_id,)).fetchone()
+    db.close()
+    if paste is None:
+        abort(404)
+    return Response(paste['content'], mimetype='text/plain')
 
 @app.errorhandler(404)
 def not_found(e):
