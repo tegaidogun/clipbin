@@ -27,9 +27,11 @@
   {% if pastes %}
   <ul>
     {% for paste in pastes %}
-    <li><a href="/paste/{{ paste.id }}">{{ paste.title }}</a> <small>({{ paste.created_at }})</small></li>
+      <li><a href="/paste/{{ paste.id }}">{{ paste.title }}</a> <small>({{ paste.created_at }})</small></li>
     {% endfor %}
   </ul>
   {% endif %}
+
+  {% include '_footer.html' %}
 </body>
 </html>

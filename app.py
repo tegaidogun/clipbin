@@ -63,18 +63,22 @@ def create_paste():
 def view_paste(paste_id):
     db = get_db()
     paste = db.execute('SELECT *, datetime(created_at, "+" || expires_in || " minutes") as expires_at FROM pastes WHERE id = ?', (paste_id,)).fetchone()
-    db.close()
-
     if paste is None:
+        db.close()
         abort(404)
 
     # Check expiration
     if paste['expires_in'] and datetime.utcnow() > datetime.strptime(paste['expires_at'], "%Y-%m-%d %H:%M:%S"):
-        db = get_db()
         db.execute('DELETE FROM pastes WHERE id = ?', (paste_id,))
         db.commit()
         db.close()
         abort(404)
+
+    # Update view count (simple increment)
+    db.execute('UPDATE pastes SET views = COALESCE(views, 0) + 1 WHERE id = ?', (paste_id,))
+    db.commit()
+    paste = db.execute('SELECT * FROM pastes WHERE id = ?', (paste_id,)).fetchone()
+    db.close()
 
     return render_template('paste.html', paste=paste)
 

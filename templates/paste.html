@@ -11,36 +11,39 @@
   </header>
   <main class="paste-view">
     <div class="paste-meta">
-      <p><em>{{ paste.created_at }}</em></p>
+      <p><em>{{ paste.created_at }} — {{ paste.views or 0 }} views</em></p>
     </div>
     <div class="codebox">
       <table class="code-table">
         <tbody>
+          <tr class="invisible-row"><td></td><td class="codetext"></td></tr>
           {% for line in paste.content.split('\n') %}
           <tr>
             <td class="lineno" unselectable="on">{{ loop.index }} |</td>
             <td class="codetext"><pre>{{ line }}</pre></td>
           </tr>
           {% endfor %}
+          <tr class="invisible-row"><td></td><td class="codetext"></td></tr>
         </tbody>
       </table>
     </div>
     <div class="paste-actions">
-      <button onclick="copyURL()">copy url</button>
-      <a href="data:text/plain;charset=utf-8,{{ paste.content | urlencode }}" download="{{ paste.title or 'paste' }}.txt">
-        <button>download .txt</button>
-      </a>
+      <button onclick="copyContent()">copy</button>
+      <button onclick="copyURL()">url</button>
+      <a href="/paste/{{ paste.id }}/raw" target="_blank"><button>raw</button></a>
+      <div class="dropdown">
+        <button id="download-btn">download</button>
+        <div class="dropdown-content">
+          <a href="data:text/plain;charset=utf-8,{{ paste.content | urlencode }}" download="{{ paste.title or 'paste' }}.txt">as .txt</a>
+          <a href="data:application/json;charset=utf-8,{&quot;paste&quot;:&quot;{{ paste.content | urlencode }}&quot;}" download="{{ paste.title or 'paste' }}.json">as .json</a>
+        </div>
+      </div>
     </div>
     <div class="paste-nav">
       <p><a href="/">new entry →</a></p>
     </div>
   </main>
-  <script>
-    function copyURL() {
-      navigator.clipboard.writeText(window.location.href).then(() => {
-        alert("URL copied to clipboard");
-      });
-    }
-  </script>
+  {% include '_footer.html' %}
+  <script src="/static/script.js"></script>
 </body>
 </html>
