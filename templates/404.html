@@ -2,17 +2,22 @@
 <html>
 <head>
   <title>PasteDump - not found</title>
-  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/output.css') }}">
 </head>
-<body>
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen flex flex-col justify-center items-center text-center px-4">
   {% include '_header.html' %}
-  <header>
-    <h1>not found</h1>
-  </header>
-  <p style="text-align: center;">
-    this entry may have expired or never existed.<br>
-    <a href="/">return home →</a>
-  </p>
+
+  <main class="mt-32">
+    <header class="mb-4">
+      <h1 class="text-3xl font-semibold">not found</h1>
+    </header>
+
+    <p class="text-gray-400 text-base leading-relaxed">
+      this entry may have expired or never existed.<br />
+      <a href="/" class="inline-block mt-4 text-blue-400 hover:underline">return home →</a>
+    </p>
+  </main>
+
   {% include '_footer.html' %}
 </body>
 </html>

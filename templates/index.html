@@ -2,32 +2,57 @@
 <html>
 <head>
   <title>PasteDump</title>
-  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/output.css') }}">
 </head>
-<body>
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen">
   {% include '_header.html' %}
-  <header>
-    <h1>new text entry</h1>
+
+  <header class="text-center my-12">
+    <h1 class="text-2xl font-semibold">new text entry</h1>
   </header>
 
-  <form action="/paste" method="POST">
-    <input type="text" name="title" placeholder="name (optional)" />
-    <textarea name="content" placeholder="type or paste content..."></textarea>
-    <div class="controls">
-      <select name="expires_in">
+  <form action="/paste" method="POST" class="max-w-5xl mx-auto px-6 space-y-4">
+    <input
+      type="text"
+      name="title"
+      placeholder="name (optional)"
+      class="w-full px-4 py-3 rounded bg-gray-800 border border-gray-700 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
+    />
+
+    <textarea
+      name="content"
+      placeholder="type or paste content..."
+      class="w-full px-4 py-3 rounded bg-gray-800 border border-gray-700 placeholder-gray-400 text-sm resize-y focus:outline-none focus:ring-2 focus:ring-blue-600"
+      style="min-height: 15rem;"
+  ></textarea>
+
+    <div class="flex flex-col sm:flex-row justify-between gap-4">
+      <select
+        name="expires_in"
+        class="w-full sm:w-auto px-4 py-2 rounded bg-gray-800 border border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
+      >
         <option value="">never</option>
         <option value="5">5 min</option>
         <option value="60">1 hr</option>
         <option value="1440">1 day</option>
       </select>
-      <button type="submit">save</button>
+
+      <button
+        type="submit"
+        class="px-6 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm self-end sm:self-auto"
+      >
+        save
+      </button>
     </div>
   </form>
 
   {% if pastes %}
-  <ul>
+  <ul class="mt-10 space-y-2 text-center">
     {% for paste in pastes %}
-      <li><a href="/paste/{{ paste.id }}">{{ paste.title }}</a> <small>({{ paste.created_at }})</small></li>
+      <li>
+        <a href="/paste/{{ paste.id }}" class="text-blue-400 hover:underline">{{ paste.title }}</a>
+        <small class="text-gray-500">({{ paste.created_at }})</small>
+      </li>
     {% endfor %}
   </ul>
   {% endif %}

@@ -1,49 +1,97 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>{{ paste.title }} - PasteDump</title>
-  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/output.css') }}">
 </head>
-<body>
+
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen">
   {% include '_header.html' %}
-  <header>
-    <h1>{{ paste.title }}</h1>
+
+  <header class="text-center mt-12 mb-6">
+    <h1 class="text-2xl font-semibold">{{ paste.title }}</h1>
   </header>
-  <main class="paste-view">
-    <div class="paste-meta">
+
+  <main class="paste-view container mx-auto px-6 max-w-[96em]">
+    <div class="paste-meta text-right text-sm text-gray-400 mb-4">
       <p><em>{{ paste.created_at }} — {{ paste.views or 0 }} views</em></p>
     </div>
-    <div class="codebox">
-      <table class="code-table">
+
+    <div class="codebox w-full bg-gray-800 border border-gray-700 rounded-md overflow-x-auto mb-6">
+      <table class="table-fixed w-full text-sm font-mono border-collapse">
+        <colgroup>
+          <col style="width: 4rem;">
+          <col style="width: 2px;">
+          <col style="width: auto;">
+        </colgroup>
         <tbody>
-          <tr class="invisible-row"><td></td><td class="codetext"></td></tr>
-          {% for line in paste.content.split('\n') %}
-          <tr>
-            <td class="lineno" unselectable="on">{{ loop.index }} |</td>
-            <td class="codetext"><pre>{{ line }}</pre></td>
+          <!-- Top spacer row -->
+          <tr class="h-6">
+            <td class="bg-[#21252b]"></td>
+            <td class="bg-gray-600"></td>
+            <td class="bg-[#222937]"></td>
           </tr>
-          {% endfor %}
-          <tr class="invisible-row"><td></td><td class="codetext"></td></tr>
+      
+          <!-- Main content row -->
+          <tr class="align-top">
+            <!-- Line numbers -->
+            <td class="bg-[#21252b] text-right text-gray-300 select-none font-mono text-base leading-relaxed pr-4 pl-3 whitespace-nowrap align-top">
+              {% for i in range(1, paste.content.split('\n')|length + 1) %}{{ i }}<br>{% endfor %}
+            </td>
+      
+            <!-- Divider -->
+            <td class="bg-gray-600"></td>
+      
+            <!-- Code content -->
+            <td class="bg-[#222937] text-gray-100 align-top pl-6">
+              <pre class="whitespace-pre break-words font-mono text-base leading-relaxed m-0">{{ paste.content }}</pre>
+            </td>
+          </tr>
+      
+          <!-- Bottom spacer row -->
+          <tr class="h-6">
+            <td class="bg-[#21252b]"></td>
+            <td class="bg-gray-600"></td>
+            <td class="bg-[#222937]"></td>
+          </tr>
         </tbody>
       </table>
+      
+      
     </div>
-    <div class="paste-actions">
-      <button onclick="copyContent()">copy</button>
-      <button onclick="copyURL()">url</button>
-      <a href="/paste/{{ paste.id }}/raw" target="_blank"><button>raw</button></a>
-      <div class="dropdown">
-        <button id="download-btn">download</button>
-        <div class="dropdown-content">
-          <a href="data:text/plain;charset=utf-8,{{ paste.content | urlencode }}" download="{{ paste.title or 'paste' }}.txt">as .txt</a>
-          <a href="data:application/json;charset=utf-8,{&quot;paste&quot;:&quot;{{ paste.content | urlencode }}&quot;}" download="{{ paste.title or 'paste' }}.json">as .json</a>
+    
+
+    <div class="paste-actions flex flex-wrap justify-end gap-3 mb-8">
+      <button onclick="copyContent()"
+        class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white text-sm">copy</button>
+      <button onclick="copyURL()"
+        class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white text-sm">url</button>
+      <a href="/paste/{{ paste.id }}/raw" target="_blank">
+        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white text-sm">raw</button>
+      </a>
+      <div class="dropdown relative">
+        <button id="download-btn"
+          class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white text-sm">download</button>
+        <div
+          class="dropdown-content absolute hidden bg-gray-800 border border-gray-700 mt-1 rounded shadow-md min-w-[7.5rem] z-10">
+          <a href="data:text/plain;charset=utf-8,{{ paste.content | urlencode }}"
+            download="{{ paste.title or 'paste' }}.txt"
+            class="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-700">as .txt</a>
+          <a href="data:application/json;charset=utf-8,{&quot;paste&quot;:&quot;{{ paste.content | urlencode }}&quot;}"
+            download="{{ paste.title or 'paste' }}.json"
+            class="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-700">as .json</a>
         </div>
       </div>
     </div>
-    <div class="paste-nav">
-      <p><a href="/">new entry →</a></p>
+
+    <div class="paste-nav text-center mt-8">
+      <p><a href="/" class="text-blue-400 hover:underline">new entry →</a></p>
     </div>
   </main>
+
   {% include '_footer.html' %}
   <script src="/static/script.js"></script>
 </body>
+
 </html>

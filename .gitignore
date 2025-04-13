@@ -1,8 +1,36 @@
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# Python virtualenv
+.venv/
+env/
+ENV/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# SQLite database file
 instance/
-pastedump.db
-.env
-.venv
-*.sqlite3
 *.db
+
+# Tailwind output
+/static/styles/output.css
+
+# Node modules
+node_modules/
+
+# VS Code
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Pytest cache
+.pytest_cache/
+.cache/

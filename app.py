@@ -91,6 +91,41 @@ def view_raw_paste(paste_id):
         abort(404)
     return Response(paste['content'], mimetype='text/plain')
 
+from datetime import datetime
+
+@app.route('/search')
+def search():
+    query = request.args.get('q', '').strip()
+
+    if not query:
+        return render_template('search.html', query=None, pastes=[], message="Enter a search term.")
+
+    db = get_db()
+    pastes = db.execute('''
+        SELECT id, title, created_at
+        FROM pastes
+        WHERE id LIKE ?
+        ORDER BY created_at DESC
+        LIMIT 20
+    ''', (f"%{query}%",)).fetchall()
+    db.close()
+
+    message = None
+    if not pastes:
+        message = "No matching pastes found."
+
+    # 🔧 Format dates here
+    pastes = [
+    {
+        **dict(paste),
+        'created_at': datetime.strptime(paste['created_at'], "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%Y @ %H:%M:%S")
+    }
+    for paste in pastes
+    ]
+
+
+    return render_template('search.html', query=query, pastes=pastes, message=message)
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template('404.html'), 404
